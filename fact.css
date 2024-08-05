@@ -1,0 +1,30 @@
+h2{
+    margin-left: 65px;
+    font-size: 40px;
+    font-family:"Lucida Console", "Courier New", monospace;
+    color:rgb(207, 57, 82);
+
+
+}
+p{
+    margin-left: 80px;
+    font-size: 30px;
+    color:rgb(249, 118, 95);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+
+}
+.fact{
+    background-image: url(https://t4.ftcdn.net/jpg/01/31/15/51/360_F_131155172_4ZVdaT7YF5yJHqircjy59DDxV6aWFds9.jpg);
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    
+}
+
+
+
+
+
+
+

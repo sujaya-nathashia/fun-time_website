@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Quiz</title>
+    <style>
+        body {
+            font-family:monospace;
+            margin: 20px;
+        }
+
+        .quiz-container {
+            max-width: 1600px;
+            margin: auto;
+        }
+
+
+
+        .option-button:hover{
+    background-color: rgb(188, 243, 188);
+  }
+        
+
+        .option-button {
+        
+            margin-bottom: 40px;
+            margin-top: 1px;
+            padding: 5px;
+            cursor:grab;
+            margin-left: 80px;
+            height: 50px;
+            width: 130px;
+            color: black;
+            font-size: 20px;
+            background-color:peachpuff;
+        }
+
+        .correct {
+             /* Green background for correct options */
+            background-color: green;
+            margin-right: 300px;
+
+        }
+
+        .wrong {
+           background-color: lightcoral;  /* Red background for wrong options */
+             
+            margin-right: 300px;
+        }
+
+        .result{
+    color: white;font-size: 30px;
+    margin-left: 85px; }       
+
+        
+        p{
+            font-size: 45px;
+            color:rgb(234, 123, 123);
+        }
+        .container{
+            background-image: url(https://t3.ftcdn.net/jpg/03/23/12/42/360_F_323124237_SfGqpttZqU2mrMm61VPSWA2tKvc95l9O.jpg);
+    overflow:hidden;
+    background-repeat:no-repeat;
+    background-attachment:fixed;
+    background-size:cover;
+    
+        }
+        button{
+            margin-left: 310px;
+            height: 70px;
+            width: 210px;
+            color: white;
+            background-color:grey;
+            margin-top: 50px;
+            font-size: 25px;
+        }
+        button:hover{
+    background-color:lightgreen;
+  }
+  .result
+  {
+    color: white;
+    font-size: 30px;
+    margin-left: 85px;
+
+  }
+
+
+        
+    </style>
+</head>
+<body >
+   <div class="container"> <h1 style="font-size: 90px;color: darkblue;font-family: cursive;text-align: center;">Quiz</h1>
+
+<div class="quiz-container" style="margin-left: 300px;margin-top: 120px;">
+    <div id="quiz1" class="question">
+        <p>1.What company is also the name of one <br>of the longest rivers in the world?</p>
+        <div class="options">
+            <button class="option-button" onclick="selectOption('Amazon', 'q1', 'option1')">Amazon</button>
+            <button class="option-button" onclick="selectOption('Nile', 'q1', 'option2')">Nile</button>
+            <button class="option-button" onclick="selectOption('Yangtze', 'q1', 'option3')">Yangtze </button>
+        </div>
+        <div id="result1" class="result"></div>
+    </div>
+
+    <div id="quiz2" class="question">
+        <p>2. How many hearts does an octopus have?</p>
+        <div class="options">
+            <button class="option-button" onclick="selectOption('1', 'q2', 'option1')">1</button>
+            <button class="option-button" onclick="selectOption('3', 'q2', 'option2')">3</button>
+            <button class="option-button" onclick="selectOption('5', 'q2', 'option3')">5</button>
+        </div>
+        <div id="result2" class="result"></div>
+    </div>
+
+    <div id="quiz3" class="question">
+        <p>3. Entomology is the science that studies</p>
+        <div class="options">
+            <button class="option-button" onclick="selectOption('Animals', 'q3', 'option1')">Aniamls</button>
+            <button class="option-button" onclick="selectOption('Insects', 'q3', 'option2')">Insects</button>
+            <button class="option-button" onclick="selectOption('Plants', 'q3', 'option3')">Plants</button>
+        </div>
+        <div id="result3" class="result"></div>
+    </div>
+    <div id="quiz4" class="question">
+        <p>4.What color does yellow and green make?</p>
+        <div class="options">
+            <button class="option-button" onclick="selectOption('Lime', 'q4', 'option1')">Lime</button>
+            <button class="option-button" onclick="selectOption('Maroon', 'q4', 'option2')">Maroon</button>
+            <button class="option-button" onclick="selectOption('Tangerine', 'q4', 'option3')">Tangerine</button>
+        </div>
+        <div id="result4" class="result"></div>
+    </div>
+    <div id="quiz5" class="question">
+        <p>5.Which company developed the first <br>mobile phone?</p>
+        <div class="options">
+            <button class="option-button" onclick="selectOption('Samsung', 'q5', 'option1')">Samsung</button>
+            <button class="option-button" onclick="selectOption('Lenovo', 'q5', 'option2')">Lenovo</button>
+            <button class="option-button" onclick="selectOption('Motorola', 'q5', 'option3')">Motorola</button>
+        </div>
+        <div id="result5" class="result"></div>
+    </div>
+
+
+    <button onclick="submitQuiz()">Submit</button>
+
+    <div id="totalScore" class="result"></div>
+</div>
+
+<script>
+    // Object to store correct answers
+    const correctAnswers = {
+        q1: 'Amazon',
+        q2:'3',
+        q3: 'Insects',
+        q4:'Lime',
+        q5:'Motorola'
+    };
+
+    // Object to store selected options
+    const selectedOptions = {};
+
+    function selectOption(option, question, optionId) {
+        // Store the selected option for the respective question
+        selectedOptions[question] = option;
+
+        // Style the selected button
+        const buttons = document.querySelectorAll(`#${question} .option-button`);
+        buttons.forEach(button => {
+            if (button.textContent.toLowerCase() === option.toLowerCase()) {
+                button.classList.add('selected');
+            } else {
+                button.classList.remove('selected');
+            }
+        });
+
+        // Display correct answer next to the question
+        const resultDiv = document.getElementById(`result${question.charAt(1)}`);
+        if (option.toLowerCase() === correctAnswers[question].toLowerCase()) {
+            resultDiv.innerHTML = `Your answer (${option}) is correct!`;
+        } else {
+            resultDiv.innerHTML = `Your answer (${option}) is incorrect. The correct answer is ${correctAnswers[question]}.`;
+        }
+    }
+
+    function submitQuiz() {
+        let score = 0;
+
+        // Display the score and correctness for each question
+        for (const question in selectedOptions) {
+            const selectedOption = selectedOptions[question];
+            const correctAnswer = correctAnswers[question];
+            const resultDiv = document.getElementById(`result${question.charAt(1)}`);
+            
+            if (selectedOption.toLowerCase() === correctAnswer.toLowerCase()) {
+                resultDiv.classList.add('correct');
+                score++;
+            } else {
+                resultDiv.classList.add('wrong');
+            }
+        }
+
+        // Display the total score
+        const totalScoreDiv = document.getElementById('totalScore');
+        totalScoreDiv.innerHTML = `Your total score is ${score}/5.`;
+    }
+</script>
+</div>
+</body>
+</html>

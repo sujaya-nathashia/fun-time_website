@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> Game</title>
+  <style>
+    body {
+      margin: 0;font-family: 'Arial', sans-serif; display: flex;
+      align-items: center; justify-content: center; height: 100vh;
+      background-color: #87CEEB;overflow: hidden;  }
+    #game-container {
+      display:grid;  grid-template-columns: repeat(5, 1fr);
+      gap: 10px;justify-content: center; align-content: center; }
+    .mole-hole {
+      position: relative;
+      width: 100px;height: 100px;background-color: #8B4513;
+      border-radius: 50%;display: flex; align-items: center;
+      justify-content: center; cursor: pointer;
+      transition: background-color 0.3s ease;}
+    .mole {
+      width: 80px; height: 80px;
+      background-color: #DAA520;
+      border-radius: 50%;position: absolute;top: 50%;left: 50%;
+      transform: translate(-50%, -50%);
+      display: none; }
+    #score {
+      font-size: 35px;
+      margin-top: 40px;
+      color: #fff;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);}
+    #timer {
+      font-size: 40px; margin-top: 20px; color: #fff;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); }
+  </style>
+</head>
+<body>
+<div><div><h1 style="margin-left: -20px;font-size: 80px;color: darkblue;font-family: cursive;text-align: center;">Game</h1></div>
+<div><p style="font-size: 15px;">The moles will randomly appear on the screen ! you need to click on them to score points. </p></div> 
+<div> <div id="game-container"></div>
+  <p id="score">Score: 0</p>
+  <p id="timer">Time: 30</p>
+</div></div>
+  <script>
+    const gameContainer = document.getElementById('game-container');
+    const scoreElement = document.getElementById('score');
+    const timerElement = document.getElementById('timer');
+
+    let score = 0;
+    let timer = 30;
+
+    function initializeGame() {
+      setInterval(updateTimer, 1280);
+      createMoles();
+    }
+
+    function createMoles() {
+      for (let i = 0; i < 15; i++) {
+        const moleHole = document.createElement('div');
+        moleHole.className = 'mole-hole';
+        moleHole.addEventListener('click', () => whackMole(moleHole));
+
+        const mole = document.createElement('div');
+        mole.className = 'mole';
+
+        moleHole.appendChild(mole);
+        gameContainer.appendChild(moleHole);
+      }
+
+      setInterval(() => {
+        const moles = document.querySelectorAll('.mole');
+        moles.forEach(mole => mole.style.display = 'none');
+
+        const randomMoleIndex = Math.floor(Math.random() * moles.length);
+        moles[randomMoleIndex].style.display ='block';
+      }, 1280);
+    }
+
+    function whackMole(moleHole) {
+      if (moleHole.querySelector('.mole').style.display === 'block') {
+        score += 1;
+        scoreElement.innerText = `Score: ${score}`;
+      }
+    }
+
+    function updateTimer() {
+      timer -= 1;
+      timerElement.innerText = `Time: ${timer}`;
+
+      if (timer === 0) {
+        endGame();
+      }
+    }
+
+    function endGame() {
+      alert(`Game Over! Your final score is ${score}.`);
+      resetGame();
+    }
+
+    function resetGame() {
+      score = 0;
+      timer = 30;
+      scoreElement.innerText = 'Score: 0';
+      timerElement.innerText = 'Time: 30';
+    }
+
+    // Start the game when the page loads
+    window.onload = initializeGame;
+  </script>
+
+</body>
+</html>
